@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML Basics - Learn HTML</title>
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Add script.js for navbar functionality -->
+  <script src="../script.js" defer></script>
+
+  <!-- Lesson styles (same style pattern as tags.html) -->
+  <style>
+    .lesson-container {
+      max-width: 1200px;
+      margin: 100px auto 50px;
+      padding: 0 20px;
+      display: flex;
+      gap: 30px;
+    }
+
+    .lesson-sidebar {
+      width: 250px;
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      height: fit-content;
+      position: sticky;
+      top: 90px;
+    }
+
+    .lesson-sidebar h3 {
+      color: #3498db;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .lesson-nav {
+      list-style: none;
+    }
+
+    .lesson-nav li {
+      margin-bottom: 10px;
+    }
+
+    .lesson-nav a {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #333;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .lesson-nav a:hover,
+    .lesson-nav a.active {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .lesson-content {
+      flex: 1;
+      background: white;
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .lesson-section {
+      margin-bottom: 50px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .lesson-section h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #3498db;
+    }
+
+    .info-box {
+      background-color: #e8f4fc;
+      border-left: 4px solid #3498db;
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .info-box i {
+      color: #3498db;
+      margin-right: 10px;
+    }
+
+    .code-example {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+
+    .code-example h4 {
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .code-example code {
+      color: #d4d4d4;
+      font-family: "Courier New", monospace;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .lesson-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .nav-btn {
+      padding: 12px 25px;
+      background-color: #f8f9fa;
+      color: #2c3e50;
+      text-decoration: none;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .nav-btn.next {
+      background-color: #3498db;
+      color: white;
+    }
+
+    .nav-btn.next:hover {
+      background-color: #2980b9;
+    }
+
+    @media (max-width: 992px) {
+      .lesson-container {
+        flex-direction: column;
+      }
+      .lesson-sidebar {
+        width: 100%;
+        position: static;
+      }
+    }
+  </style>
+</head>
+
+<body data-lesson="basics">
+  <!-- Navbar (standardized across all pages) -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        <span>HTML Master</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="active"><i class="fas fa-graduation-cap"></i> Tutorials <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <div class="dropdown-column">
+              <h4>HTML Basics</h4>
+              <a href="basics.html#introduction"><i class="fas fa-chevron-right"></i> HTML Introduction</a>
+              <a href="basics.html#structure"><i class="fas fa-chevron-right"></i> Document Structure</a>
+              <a href="basics.html#elements"><i class="fas fa-chevron-right"></i> HTML Elements</a>
+              <a href="basics.html#attributes"><i class="fas fa-chevron-right"></i> HTML Attributes</a>
+              <a href="basics.html#headings"><i class="fas fa-chevron-right"></i> Headings & Paragraphs</a>
+            </div>
+
+            <div class="dropdown-column">
+              <h4>Links & Media</h4>
+              <a href="links-media.html#links"><i class="fas fa-chevron-right"></i> HTML Links</a>
+              <a href="links-media.html#paths"><i class="fas fa-chevron-right"></i> Paths (Relative/Absolute)</a>
+              <a href="links-media.html#images"><i class="fas fa-chevron-right"></i> HTML Images</a>
+              <a href="links-media.html#audio-video"><i class="fas fa-chevron-right"></i> HTML Media</a>
+              <a href="links-media.html#embed"><i class="fas fa-chevron-right"></i> HTML iframe</a>
+            </div>
+
+            <div class="dropdown-column">
+              <h4>HTML Advanced</h4>
+              <a href="tags.html#semantic"><i class="fas fa-chevron-right"></i> Semantic HTML</a>
+              <a href="tags.html#formatting"><i class="fas fa-chevron-right"></i> Formatting Tags</a>
+              <a href="advanced.html#responsive"><i class="fas fa-chevron-right"></i> Responsive HTML</a>
+              <a href="advanced.html#accessibility"><i class="fas fa-chevron-right"></i> Accessibility</a>
+              <a href="advanced.html#entities"><i class="fas fa-chevron-right"></i> Entities & Symbols</a>
+            </div>
+
+            <div class="dropdown-column">
+              <h4>HTML Forms</h4>
+              <a href="forms.html#basic-form"><i class="fas fa-chevron-right"></i> HTML Forms</a>
+              <a href="forms.html#input-types"><i class="fas fa-chevron-right"></i> Input Types</a>
+              <a href="forms.html#validation"><i class="fas fa-chevron-right"></i> Form Validation</a>
+            </div>
+
+            <div class="dropdown-column">
+              <h4>HTML APIs</h4>
+              <a href="apis.html#geolocation"><i class="fas fa-chevron-right"></i> Geolocation</a>
+              <a href="apis.html#dragdrop"><i class="fas fa-chevron-right"></i> Drag &amp; Drop</a>
+              <a href="apis.html#storage"><i class="fas fa-chevron-right"></i> Web Storage</a>
+              <a href="apis.html#workers"><i class="fas fa-chevron-right"></i> Web Workers</a>
+              <a href="apis.html#sse"><i class="fas fa-chevron-right"></i> SSE</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="../arcade.html"><i class="fas fa-gamepad"></i> Arcade</a></li>
+        <li><a href="../index.html#resources"><i class="fas fa-book-open"></i> Resources</a></li>
+        <li><a href="reference.html"><i class="fas fa-book"></i> References</a></li>
+        <li><a href="../index.html#examples"><i class="fas fa-laptop-code"></i> Examples</a></li>
+        <li><a href="../index.html#exercises"><i class="fas fa-dumbbell"></i> Exercises</a></li>
+        <li><a href="../index.html#quiz"><i class="fas fa-question-circle"></i> Quiz</a></li>
+        <li><a href="../index.html#certificate"><i class="fas fa-award"></i> Certificate</a></li>
+      </ul>
+      <div class="search-box">
+        <input type="text" placeholder="Search tutorials..." id="searchInput">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+
+      <!-- XP HUD (powered by script.js localStorage) -->
+      <div class="xp-pill" title="Your XP and Level">
+        <i class="fas fa-bolt"></i>
+        <span>Level <span data-hm-level>1</span></span>
+        <div class="xp-meter" aria-hidden="true"><div data-hm-xpbar></div></div>
+        <small><span data-hm-xp>0</span> XP</small>
+      </div>
+
+      <div class="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </nav>
+
+  <main class="lesson-container">
+    <!-- Sidebar -->
+    <div class="lesson-sidebar">
+      <h3>Lesson Contents</h3>
+      <ul class="lesson-nav">
+        <li><a href="#introduction" class="active">Introduction</a></li>
+        <li><a href="#structure">Document Structure</a></li>
+        <li><a href="#elements">Common Elements</a></li>
+        <li><a href="#attributes">Attributes</a></li>
+        <li><a href="#example">Mini Example</a></li>
+        <li><a href="#practice">Practice Exercise</a></li>
+      </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="lesson-content">
+      <h1>HTML Basics</h1>
+      <p style="color:#95a5a6; margin: 10px 0 30px;">
+        Learn the foundation of HTML — structure, elements, and clean markup.
+      </p>
+
+      <section id="introduction" class="lesson-section">
+        <h2>Introduction</h2>
+        <p>
+          <strong>HTML</strong> (HyperText Markup Language) describes the structure of a webpage using <em>elements</em>.
+        </p>
+        <div class="info-box">
+          <i class="fas fa-lightbulb"></i>
+          <p><strong>Pro tip:</strong> HTML = structure, CSS = style, JavaScript = behavior.</p>
+        </div>
+      </section>
+
+      <section id="structure" class="lesson-section">
+        <h2>Document Structure</h2>
+        <p>Every HTML page has the same basic skeleton:</p>
+
+        <div class="code-example">
+          <h4>HTML skeleton:</h4>
+          <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <ul>
+          <li><code>&lt;!DOCTYPE html&gt;</code> enables modern HTML5 mode.</li>
+          <li><code>&lt;head&gt;</code> holds metadata and CSS links.</li>
+          <li><code>&lt;body&gt;</code> holds visible content.</li>
+        </ul>
+      </section>
+
+      <section id="elements" class="lesson-section">
+        <h2>Common Elements</h2>
+        <div class="code-example">
+          <h4>Common tags:</h4>
+          <pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
+&lt;p&gt;A paragraph with a &lt;a href="https://example.com"&gt;link&lt;/a&gt;.&lt;/p&gt;
+
+&lt;img src="cat.jpg" alt="A cat" width="300"&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Item one&lt;/li&gt;
+  &lt;li&gt;Item two&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </div>
+
+        <div class="info-box">
+          <i class="fas fa-circle-check"></i>
+          <p><strong>Best practice:</strong> Always include <code>alt</code> text on images.</p>
+        </div>
+      </section>
+
+      <section id="attributes" class="lesson-section">
+        <h2>Attributes</h2>
+        <p>Attributes add extra information inside the opening tag:</p>
+
+        <div class="code-example">
+          <h4>Attribute examples:</h4>
+          <pre><code>&lt;a href="/about.html" target="_blank" rel="noopener"&gt;About&lt;/a&gt;
+
+&lt;input type="email" name="email" placeholder="you@example.com" required&gt;
+
+&lt;button type="button" aria-label="Close dialog"&gt;X&lt;/button&gt;</code></pre>
+        </div>
+
+        <div class="info-box">
+          <i class="fas fa-lock"></i>
+          <p><strong>Security:</strong> if you use <code>target="_blank"</code>, add <code>rel="noopener"</code>.</p>
+        </div>
+      </section>
+
+      <section id="example" class="lesson-section">
+        <h2>Mini Example</h2>
+        <p>A simple “profile card” using only HTML:</p>
+
+        <div class="code-example">
+          <h4>Profile card:</h4>
+          <pre><code>&lt;article&gt;
+  &lt;h3&gt;Ada Lovelace&lt;/h3&gt;
+  &lt;p&gt;First computer programmer.&lt;/p&gt;
+  &lt;a href="https://en.wikipedia.org/wiki/Ada_Lovelace"&gt;Read more&lt;/a&gt;
+&lt;/article&gt;</code></pre>
+        </div>
+      </section>
+
+      <section id="practice" class="lesson-section">
+        <h2>Practice Exercise</h2>
+        <p>Create a page that includes:</p>
+        <ol>
+          <li>A main heading (<code>&lt;h1&gt;</code>)</li>
+          <li>Two paragraphs (<code>&lt;p&gt;</code>)</li>
+          <li>A link that opens in a new tab (with safe <code>rel</code>)</li>
+          <li>An image with <code>alt</code> text</li>
+        </ol>
+
+        <div class="info-box">
+          <i class="fas fa-dumbbell"></i>
+          <p><strong>Challenge:</strong> Wrap everything in an <code>&lt;article&gt;</code> and add a list.</p>
+        </div>
+      </section>
+
+      <div class="lesson-navigation">
+        <a href="../index.html#lessons" class="nav-btn">
+          <i class="fas fa-arrow-left"></i> Back to Lessons
+        </a>
+        <a href="links-media.html" class="nav-btn next">
+          Next: Links & Media <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Sidebar active link while scrolling (matches the section in view)
+    const links = Array.from(document.querySelectorAll(".lesson-nav a"));
+    const sections = links
+      .map(a => document.querySelector(a.getAttribute("href")))
+      .filter(Boolean);
+
+    function setActiveLink() {
+      const y = window.scrollY + 120; // offset for fixed navbar
+      let current = sections[0];
+      for (const s of sections) {
+        if (s.offsetTop <= y) current = s;
+      }
+      links.forEach(a => a.classList.remove("active"));
+      const active = links.find(a => a.getAttribute("href") === `#${current.id}`);
+      if (active) active.classList.add("active");
+    }
+
+    window.addEventListener("scroll", setActiveLink);
+    setActiveLink();
+  </script>
+</body>
+</html>

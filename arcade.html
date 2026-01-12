@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML Arcade - Learn by Playing</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Small page-specific tweaks (kept tiny on purpose) */
+    .arcade-hero { padding: 140px 0 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+    .arcade-hero .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; }
+    .arcade-hero h1 { margin: 0 0 8px; }
+    .arcade-hero p { margin: 0; opacity: 0.95; max-width: 700px; }
+
+    .arcade-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin: 26px 0 30px; }
+    .arcade-card { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eef0f6; }
+    .arcade-card h3 { margin: 0 0 6px; }
+    .arcade-card p { color: #666; margin: 0 0 14px; }
+
+    .game-panel { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eef0f6; }
+    .game-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tab-btn { border: 1px solid #e6e8f0; background: #fff; padding: 10px 12px; border-radius: 10px; cursor: pointer; font-weight: 700; }
+    .tab-btn.active { background: #f5f6ff; border-color: #cfd3ff; }
+
+    .question { font-size: 1.05rem; font-weight: 800; margin-bottom: 12px; }
+    .choices { display: grid; gap: 10px; }
+    .choice { border: 1px solid #e6e8f0; border-radius: 10px; padding: 12px; cursor: pointer; font-weight: 700; background: #fff; }
+    .choice:hover { background: #f8f9ff; }
+    .choice.correct { border-color: #2ecc71; background: rgba(46, 204, 113, 0.10); }
+    .choice.wrong { border-color: #e74c3c; background: rgba(231, 76, 60, 0.10); }
+
+    .mini-input { width: 100%; min-height: 120px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .output-box { background: #0f172a; color: #e2e8f0; padding: 14px; border-radius: 12px; min-height: 54px; white-space: pre-wrap; }
+
+    .badge-list { display: grid; gap: 8px; margin-top: 12px; }
+    .badge { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid #e6e8f0; border-radius: 12px; background: #fff; }
+    .badge strong { display: inline-flex; align-items: center; gap: 8px; }
+    .badge .status { font-weight: 800; }
+
+    .muted { color: #666; }
+
+    @media (max-width: 768px) {
+      .arcade-hero { padding-top: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation (same style as main site) -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        <span>HTML Master</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="index.html#home"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="index.html#tutorials"><i class="fas fa-graduation-cap"></i> Tutorials</a></li>
+        <li><a href="arcade.html" class="active"><i class="fas fa-gamepad"></i> Arcade</a></li>
+        <li><a href="index.html#quiz"><i class="fas fa-question-circle"></i> Quiz</a></li>
+      </ul>
+
+      <div class="xp-pill" title="Your XP and Level">
+        <i class="fas fa-bolt"></i>
+        <span>Level <span data-hm-level>1</span></span>
+        <div class="xp-meter" aria-hidden="true"><div data-hm-xpbar></div></div>
+        <small><span data-hm-xp>0</span> XP</small>
+      </div>
+
+      <div class="hamburger"><i class="fas fa-bars"></i></div>
+    </div>
+  </nav>
+
+  <header class="arcade-hero">
+    <div class="container">
+      <div>
+        <h1><i class="fas fa-gamepad"></i> HTML Arcade</h1>
+        <p>Short games, instant feedback, and XP rewards. Play for 3 minutes, learn for life.</p>
+      </div>
+      <div class="muted" style="color: rgba(255,255,255,0.9); font-weight: 700;">
+        Tip: Earn XP here, then go back and crush the quiz.
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 28px 0 60px;">
+    <section class="arcade-grid">
+      <a class="arcade-card" href="#guess" style="text-decoration:none;">
+        <h3 id="guess"><i class="fas fa-bullseye"></i> Guess the Tag</h3>
+        <p>Pick the correct HTML tag for the job. Streaks give bonus XP.</p>
+        <span class="btn btn-primary" style="display:inline-block;">Play</span>
+      </a>
+      <a class="arcade-card" href="#fix" style="text-decoration:none;">
+        <h3 id="fix"><i class="fas fa-wrench"></i> Fix the HTML</h3>
+        <p>Repair broken HTML (close tags, add attributes, fix nesting).</p>
+        <span class="btn btn-primary" style="display:inline-block;">Play</span>
+      </a>
+      <a class="arcade-card" href="#build" style="text-decoration:none;">
+        <h3 id="build"><i class="fas fa-layer-group"></i> Build the Structure</h3>
+        <p>Reorder the pieces of a valid HTML document structure.</p>
+        <span class="btn btn-primary" style="display:inline-block;">Play</span>
+      </a>
+      <a class="arcade-card" href="#badges" style="text-decoration:none;">
+        <h3 id="badges"><i class="fas fa-award"></i> Badges</h3>
+        <p>Collect badges for streaks, perfect rounds, and consistency.</p>
+        <span class="btn btn-primary" style="display:inline-block;">View</span>
+      </a>
+    </section>
+
+    <section class="game-panel" aria-label="Arcade games">
+      <div class="game-header">
+        <div class="tabs" role="tablist">
+          <button class="tab-btn active" data-tab="guess" type="button">Guess the Tag</button>
+          <button class="tab-btn" data-tab="fix" type="button">Fix the HTML</button>
+          <button class="tab-btn" data-tab="build" type="button">Build the Structure</button>
+          <button class="tab-btn" data-tab="badges" type="button">Badges</button>
+        </div>
+        <div class="muted" style="font-weight:800;">Streak: <span id="streak">0</span></div>
+      </div>
+
+      <!-- GUESS THE TAG -->
+      <div class="tab" id="tab-guess">
+        <div class="question" id="guessQuestion"></div>
+        <div class="choices" id="guessChoices"></div>
+        <p class="muted" id="guessHint" style="margin-top: 12px;"></p>
+      </div>
+
+      <!-- FIX THE HTML -->
+      <div class="tab" id="tab-fix" style="display:none;">
+        <div class="question" style="margin-bottom: 8px;">Fix this snippet (make it valid and accessible):</div>
+        <textarea class="mini-input" id="fixInput" spellcheck="false"></textarea>
+        <div style="display:flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+          <button class="btn btn-primary" type="button" id="checkFix"><i class="fas fa-check"></i> Check</button>
+          <button class="btn btn-secondary" type="button" id="newFix"><i class="fas fa-random"></i> New</button>
+        </div>
+        <div style="margin-top: 12px;">
+          <div class="muted" style="font-weight:800; margin-bottom: 8px;">Feedback</div>
+          <div class="output-box" id="fixOutput"></div>
+        </div>
+      </div>
+
+      <!-- BUILD STRUCTURE -->
+      <div class="tab" id="tab-build" style="display:none;">
+        <div class="question" style="margin-bottom: 10px;">Put these in the correct order (1 → 5):</div>
+        <div id="buildItems" class="choices"></div>
+        <div style="display:flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+          <button class="btn btn-primary" type="button" id="checkBuild"><i class="fas fa-check"></i> Check</button>
+          <button class="btn btn-secondary" type="button" id="shuffleBuild"><i class="fas fa-random"></i> Shuffle</button>
+        </div>
+        <div style="margin-top: 12px;">
+          <div class="muted" style="font-weight:800; margin-bottom: 8px;">Feedback</div>
+          <div class="output-box" id="buildOutput"></div>
+        </div>
+      </div>
+
+      <!-- BADGES -->
+      <div class="tab" id="tab-badges" style="display:none;">
+        <p class="muted">Badges are saved to your browser (localStorage). Earn them in the quiz, lessons, and arcade.</p>
+        <div class="badge-list" id="badgeList"></div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px;">
+          <button class="btn btn-secondary" type="button" id="resetProgress"><i class="fas fa-undo"></i> Reset Progress</button>
+          <a class="btn btn-primary" href="index.html#tutorials"><i class="fas fa-graduation-cap"></i> Back to Lessons</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>HTML Master</h3>
+        <p>Learn HTML with interactive lessons, quizzes, and arcade games.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html#tutorials">Tutorials</a></li>
+          <li><a href="index.html#quiz">Quiz</a></li>
+          <li><a href="index.html#certificate">Certificate</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Play</h3>
+        <ul>
+          <li><a href="#guess">Guess the Tag</a></li>
+          <li><a href="#fix">Fix the HTML</a></li>
+          <li><a href="#build">Build the Structure</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 HTML Master. Learn • Build • Play</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Tabs
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    function showTab(name) {
+      tabButtons.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+      document.querySelectorAll('.tab').forEach(t => t.style.display = 'none');
+      const active = document.getElementById('tab-' + name);
+      if (active) active.style.display = 'block';
+      if (name === 'badges') renderBadges();
+    }
+    tabButtons.forEach(btn => btn.addEventListener('click', () => showTab(btn.dataset.tab)));
+
+    // Shared state
+    let streak = 0;
+    const streakEl = document.getElementById('streak');
+    function setStreak(v) {
+      streak = v;
+      streakEl.textContent = String(streak);
+    }
+
+    /* -------------------
+       Game A: Guess the Tag
+       ------------------- */
+    const GUESS = [
+      { q: 'Create a hyperlink', choices: ['<link>', '<a>', '<href>', '<url>'], a: 1, hint: 'Use href="..." on this element.' },
+      { q: 'Insert an image', choices: ['<image>', '<picture>', '<img>', '<media>'], a: 2, hint: 'Needs alt text for accessibility.' },
+      { q: 'Main page heading', choices: ['<h6>', '<header>', '<h1>', '<title>'], a: 2, hint: 'Largest heading level.' },
+      { q: 'Group navigation links', choices: ['<nav>', '<menu>', '<section>', '<aside>'], a: 0, hint: 'Landmark for site navigation.' },
+      { q: 'Emphasize important text (semantic)', choices: ['<b>', '<i>', '<strong>', '<mark>'], a: 2, hint: 'Means “important”, not just bold.' },
+      { q: 'Define a table row', choices: ['<tr>', '<td>', '<th>', '<row>'], a: 0, hint: 'Inside <table>.' },
+      { q: 'Embed video', choices: ['<video>', '<movie>', '<media>', '<mp4>'], a: 0, hint: 'Supports controls, autoplay, muted.' },
+      { q: 'Add a line break', choices: ['<lb>', '<br>', '<break>', '<hr>'], a: 1, hint: 'Self-closing void element.' }
+    ];
+
+    let guessIndex = 0;
+    const guessQuestion = document.getElementById('guessQuestion');
+    const guessChoices = document.getElementById('guessChoices');
+    const guessHint = document.getElementById('guessHint');
+
+    function renderGuess() {
+      const item = GUESS[guessIndex % GUESS.length];
+      guessQuestion.textContent = `Which tag would you use to: ${item.q}?`;
+      guessHint.textContent = '';
+      guessChoices.innerHTML = '';
+      item.choices.forEach((c, idx) => {
+        const btn = document.createElement('div');
+        btn.className = 'choice';
+        btn.innerHTML = `<code>${c.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</code>`;
+        btn.addEventListener('click', () => {
+          const correct = idx === item.a;
+          if (correct) {
+            btn.classList.add('correct');
+            setStreak(streak + 1);
+            const base = 10;
+            const bonus = streak >= 3 ? 5 : 0;
+            window.HTMLMaster?.awardXP(base + bonus, bonus ? 'Streak bonus' : 'Arcade');
+            if (streak === 3) window.HTMLMaster?.grantBadge('streak-3', '3 Streak');
+            if (streak === 5) window.HTMLMaster?.grantBadge('streak-5', '5 Streak');
+            setTimeout(() => { guessIndex++; renderGuess(); }, 520);
+          } else {
+            btn.classList.add('wrong');
+            setStreak(0);
+            guessHint.textContent = `Hint: ${item.hint}`;
+          }
+        });
+        guessChoices.appendChild(btn);
+      });
+    }
+
+    /* -------------------
+       Game B: Fix the HTML
+       ------------------- */
+    const FIXES = [
+      {
+        broken: `<img src="cat.jpg">`,
+        mustInclude: ['alt='],
+        explain: 'Images should have alt text (accessibility).'
+      },
+      {
+        broken: `<a>Click here</a>`,
+        mustInclude: ['href='],
+        explain: 'Links need an href destination.'
+      },
+      {
+        broken: `<ul>\n  <li>One\n  <li>Two\n</ul>`,
+        mustInclude: ['</li>'],
+        explain: 'List items should be properly closed.'
+      },
+      {
+        broken: `<p><h2>Title</h2></p>`,
+        mustInclude: ['<h2>', '</h2>'],
+        forbid: ['<p><h2'],
+        explain: 'Headings should not be nested inside paragraphs.'
+      },
+      {
+        broken: `<label>Username</label>\n<input type="text">`,
+        mustInclude: ['for=', 'id='],
+        explain: 'Labels should connect to inputs using for/id.'
+      }
+    ];
+
+    let fixIndex = 0;
+    const fixInput = document.getElementById('fixInput');
+    const fixOutput = document.getElementById('fixOutput');
+
+    function newFix() {
+      const item = FIXES[fixIndex % FIXES.length];
+      fixInput.value = item.broken;
+      fixOutput.textContent = 'Edit the code above and press “Check”.';
+    }
+
+    document.getElementById('newFix').addEventListener('click', () => { fixIndex++; newFix(); });
+
+    document.getElementById('checkFix').addEventListener('click', () => {
+      const item = FIXES[fixIndex % FIXES.length];
+      const text = fixInput.value;
+      const must = (item.mustInclude || []).every(s => text.toLowerCase().includes(s.toLowerCase()));
+      const forbidOk = (item.forbid || []).every(s => !text.toLowerCase().includes(s.toLowerCase()));
+
+      if (must && forbidOk) {
+        fixOutput.textContent = `✅ Nice! ${item.explain}\n+20 XP`;
+        window.HTMLMaster?.awardXP(20, 'Fix the HTML');
+        window.HTMLMaster?.grantBadge('fixer', 'HTML Fixer');
+        setTimeout(() => { fixIndex++; newFix(); }, 650);
+      } else {
+        fixOutput.textContent = `❌ Not yet. Tip: ${item.explain}`;
+      }
+    });
+
+    /* -------------------
+       Game C: Build Structure
+       ------------------- */
+    const buildItems = document.getElementById('buildItems');
+    const buildOutput = document.getElementById('buildOutput');
+    const STRUCTURE = [
+      '<!DOCTYPE html>',
+      '<html>',
+      '<head>...<title>...</title>...</head>',
+      '<body>...content...</body>',
+      '</html>'
+    ];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    let currentStructure = shuffle([...STRUCTURE]);
+
+    function renderBuild() {
+      buildItems.innerHTML = '';
+      currentStructure.forEach((item, i) => {
+        const row = document.createElement('div');
+        row.className = 'choice';
+        row.innerHTML = `
+          <div style="display:flex; align-items:center; justify-content:space-between; gap: 10px;">
+            <code>${item.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</code>
+            <div style="display:flex; gap: 6px;">
+              <button type="button" class="tab-btn" aria-label="Move up" style="padding:8px 10px;" data-up="${i}">↑</button>
+              <button type="button" class="tab-btn" aria-label="Move down" style="padding:8px 10px;" data-down="${i}">↓</button>
+            </div>
+          </div>
+        `;
+        buildItems.appendChild(row);
+      });
+
+      buildItems.querySelectorAll('[data-up]').forEach(btn => btn.addEventListener('click', () => {
+        const idx = Number(btn.dataset.up);
+        if (idx <= 0) return;
+        [currentStructure[idx - 1], currentStructure[idx]] = [currentStructure[idx], currentStructure[idx - 1]];
+        renderBuild();
+      }));
+
+      buildItems.querySelectorAll('[data-down]').forEach(btn => btn.addEventListener('click', () => {
+        const idx = Number(btn.dataset.down);
+        if (idx >= currentStructure.length - 1) return;
+        [currentStructure[idx + 1], currentStructure[idx]] = [currentStructure[idx], currentStructure[idx + 1]];
+        renderBuild();
+      }));
+    }
+
+    document.getElementById('shuffleBuild').addEventListener('click', () => {
+      currentStructure = shuffle([...STRUCTURE]);
+      buildOutput.textContent = 'Shuffled! Put them in the right order and press “Check”.';
+      renderBuild();
+    });
+
+    document.getElementById('checkBuild').addEventListener('click', () => {
+      const ok = currentStructure.every((v, i) => v === STRUCTURE[i]);
+      if (ok) {
+        buildOutput.textContent = '✅ Perfect structure! +25 XP';
+        window.HTMLMaster?.awardXP(25, 'Build the structure');
+        window.HTMLMaster?.grantBadge('builder', 'Structure Builder');
+      } else {
+        buildOutput.textContent = '❌ Not quite. Hint: <!DOCTYPE> goes first and </html> goes last.';
+      }
+    });
+
+    /* -------------------
+       Badges
+       ------------------- */
+    const BADGE_DEFS = [
+      { id: 'first-lesson', label: 'First Lesson', icon: '🎓' },
+      { id: 'five-lessons', label: '5 Lessons', icon: '📚' },
+      { id: 'all-lessons', label: 'Course Explorer', icon: '🧭' },
+      { id: 'streak-3', label: '3 Streak', icon: '🔥' },
+      { id: 'streak-5', label: '5 Streak', icon: '🚀' },
+      { id: 'fixer', label: 'HTML Fixer', icon: '🛠️' },
+      { id: 'builder', label: 'Structure Builder', icon: '🧱' },
+      { id: 'quiz-80', label: 'Quiz 80%+', icon: '🏆' },
+      { id: 'quiz-perfect', label: 'Perfect Quiz', icon: '💯' }
+    ];
+
+    function renderBadges() {
+      const have = new Set(window.HTMLMaster?.getBadges?.() || []);
+      const list = document.getElementById('badgeList');
+      list.innerHTML = '';
+      BADGE_DEFS.forEach(b => {
+        const row = document.createElement('div');
+        row.className = 'badge';
+        row.innerHTML = `
+          <strong>${b.icon} ${b.label}</strong>
+          <span class="status">${have.has(b.id) ? 'Unlocked ✅' : 'Locked 🔒'}</span>
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    document.getElementById('resetProgress').addEventListener('click', () => {
+      if (!confirm('Reset XP, badges, and lesson progress?')) return;
+      localStorage.removeItem('htmlmaster_completed_lessons');
+      localStorage.removeItem('htmlmaster_xp');
+      localStorage.removeItem('htmlmaster_badges');
+      setStreak(0);
+      window.HTMLMaster?.updateHUD?.();
+      window.HTMLMaster?.updateProgressUI?.();
+      renderBadges();
+      window.HTMLMaster?.awardXP(0, '');
+    });
+
+    // Initialize
+    renderGuess();
+    newFix();
+    renderBuild();
+    buildOutput.textContent = 'Reorder the items, then press “Check”.';
+  </script>
+</body>
+</html>

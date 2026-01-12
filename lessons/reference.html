@@ -1,0 +1,390 @@
+<!-- File: lessons/reference.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Complete Reference - HTML Master</title>
+
+    <!-- Correct path because this file is inside /lessons/ -->
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Add script.js for navbar functionality -->
+    <script src="../script.js" defer></script>
+
+    <style>
+        .reference-container { max-width: 1200px; margin: 100px auto 50px; padding: 0 20px; }
+        .reference-header { text-align: center; margin-bottom: 50px; }
+        .reference-header h1 { color: var(--dark-color); margin-bottom: 15px; font-size: 2.5rem; }
+
+        .reference-search { max-width: 600px; margin: 30px auto; }
+        .reference-search input {
+            width: 100%; padding: 15px 20px; border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius); font-size: 1rem; transition: var(--transition);
+        }
+        .reference-search input:focus {
+            outline: none; border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .category-filter { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 40px; }
+        .filter-btn {
+            padding: 8px 20px; background: var(--light-color); border: none; border-radius: 20px;
+            cursor: pointer; transition: var(--transition); font-weight: 500;
+        }
+        .filter-btn.active, .filter-btn:hover { background: var(--primary-color); color: white; }
+
+        .tags-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+
+        .tag-card {
+            background: white; border-radius: var(--border-radius); padding: 25px;
+            box-shadow: var(--box-shadow); transition: var(--transition);
+            border-top: 4px solid var(--primary-color);
+        }
+        .tag-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); }
+
+        .tag-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .tag-name {
+            font-family: 'Courier New', monospace; background: #1e1e1e; color: white;
+            padding: 5px 10px; border-radius: 4px; font-weight: bold;
+        }
+        .tag-category {
+            padding: 3px 10px; background: var(--light-color); border-radius: 3px;
+            font-size: 0.8rem; color: var(--gray-color); text-transform: capitalize;
+        }
+
+        .tag-description { color: var(--gray-color); margin-bottom: 15px; line-height: 1.6; min-height: 60px; }
+
+        .tag-example {
+            background: #f8f9fa; padding: 15px; border-radius: 5px;
+            font-family: 'Courier New', monospace; font-size: 0.9rem;
+            overflow-x: auto; margin-bottom: 15px;
+            border-left: 3px solid var(--primary-color);
+            cursor: pointer;
+        }
+
+        .tag-attributes { font-size: 0.9rem; color: var(--dark-color); }
+        .tag-attributes strong { color: var(--primary-color); }
+
+        .breadcrumb { margin-bottom: 30px; color: var(--gray-color); }
+        .breadcrumb a { color: var(--gray-color); text-decoration: none; }
+        .breadcrumb a:hover { color: var(--primary-color); }
+
+        .try-it-btn {
+            padding: 8px 15px; background: var(--secondary-color); color: white;
+            border: none; border-radius: 4px; cursor: pointer;
+            font-size: 0.9rem; margin-top: 10px; transition: var(--transition);
+        }
+        .try-it-btn:hover { background: #27ae60; }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <i class="fas fa-code"></i>
+            <span>HTML Master</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li class="dropdown">
+                <a href="#"><i class="fas fa-graduation-cap"></i> Tutorials <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-column">
+                        <h4>HTML Basics</h4>
+                        <a href="basics.html#introduction"><i class="fas fa-chevron-right"></i> HTML Introduction</a>
+                        <a href="basics.html#structure"><i class="fas fa-chevron-right"></i> Document Structure</a>
+                        <a href="basics.html#elements"><i class="fas fa-chevron-right"></i> HTML Elements</a>
+                        <a href="basics.html#attributes"><i class="fas fa-chevron-right"></i> HTML Attributes</a>
+                        <a href="basics.html#headings"><i class="fas fa-chevron-right"></i> Headings & Paragraphs</a>
+                    </div>
+
+                    <div class="dropdown-column">
+                        <h4>Links & Media</h4>
+                        <a href="links-media.html#links"><i class="fas fa-chevron-right"></i> HTML Links</a>
+                        <a href="links-media.html#paths"><i class="fas fa-chevron-right"></i> Paths (Relative/Absolute)</a>
+                        <a href="links-media.html#images"><i class="fas fa-chevron-right"></i> HTML Images</a>
+                        <a href="links-media.html#audio-video"><i class="fas fa-chevron-right"></i> HTML Media</a>
+                        <a href="links-media.html#embed"><i class="fas fa-chevron-right"></i> HTML iframe</a>
+                    </div>
+
+                    <div class="dropdown-column">
+                        <h4>HTML Advanced</h4>
+                        <a href="tags.html#semantic"><i class="fas fa-chevron-right"></i> Semantic HTML</a>
+                        <a href="tags.html#formatting"><i class="fas fa-chevron-right"></i> Formatting Tags</a>
+                        <a href="advanced.html#responsive"><i class="fas fa-chevron-right"></i> Responsive HTML</a>
+                        <a href="advanced.html#accessibility"><i class="fas fa-chevron-right"></i> Accessibility</a>
+                        <a href="advanced.html#entities"><i class="fas fa-chevron-right"></i> Entities & Symbols</a>
+                    </div>
+
+                    <div class="dropdown-column">
+                        <h4>HTML Forms</h4>
+                        <a href="forms.html#basic-form"><i class="fas fa-chevron-right"></i> HTML Forms</a>
+                        <a href="forms.html#input-types"><i class="fas fa-chevron-right"></i> Input Types</a>
+                        <a href="forms.html#validation"><i class="fas fa-chevron-right"></i> Form Validation</a>
+                    </div>
+
+                    <div class="dropdown-column">
+                        <h4>HTML APIs</h4>
+                        <a href="apis.html#geolocation"><i class="fas fa-chevron-right"></i> Geolocation</a>
+                        <a href="apis.html#dragdrop"><i class="fas fa-chevron-right"></i> Drag &amp; Drop</a>
+                        <a href="apis.html#storage"><i class="fas fa-chevron-right"></i> Web Storage</a>
+                        <a href="apis.html#workers"><i class="fas fa-chevron-right"></i> Web Workers</a>
+                        <a href="apis.html#sse"><i class="fas fa-chevron-right"></i> SSE</a>
+                    </div>
+                </div>
+            </li>
+            <li><a href="../arcade.html"><i class="fas fa-gamepad"></i> Arcade</a></li>
+            <li><a href="../index.html#resources"><i class="fas fa-book-open"></i> Resources</a></li>
+            <li><a href="reference.html" class="active"><i class="fas fa-book"></i> References</a></li>
+            <li><a href="../index.html#examples"><i class="fas fa-laptop-code"></i> Examples</a></li>
+            <li><a href="../index.html#exercises"><i class="fas fa-dumbbell"></i> Exercises</a></li>
+            <li><a href="../index.html#quiz"><i class="fas fa-question-circle"></i> Quiz</a></li>
+            <li><a href="../index.html#certificate"><i class="fas fa-award"></i> Certificate</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" placeholder="Search references..." id="referenceSearch">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+
+        <!-- XP HUD (powered by script.js localStorage) -->
+        <div class="xp-pill" title="Your XP and Level">
+            <i class="fas fa-bolt"></i>
+            <span>Level <span data-hm-level>1</span></span>
+            <div class="xp-meter" aria-hidden="true"><div data-hm-xpbar></div></div>
+            <small><span data-hm-xp>0</span> XP</small>
+        </div>
+
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+</nav>
+
+<main class="reference-container">
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a> / <span>HTML Reference</span>
+    </div>
+
+    <div class="reference-header">
+        <h1>HTML Tag Reference</h1>
+        <p class="section-subtitle">Complete list of HTML tags with examples and descriptions</p>
+
+        <div class="reference-search">
+            <input type="text" placeholder="Search HTML tags by name or description..." id="searchTags" />
+        </div>
+
+        <div class="category-filter">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="basic">Basic</button>
+            <button class="filter-btn" data-category="formatting">Formatting</button>
+            <button class="filter-btn" data-category="forms">Forms</button>
+            <button class="filter-btn" data-category="media">Media</button>
+            <button class="filter-btn" data-category="semantic">Semantic</button>
+            <button class="filter-btn" data-category="table">Tables</button>
+        </div>
+    </div>
+
+    <div class="tags-grid" id="tagsContainer"></div>
+</main>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>HTML Master</h3>
+            <p>Complete HTML learning platform with tutorials, references, and interactive examples.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="reference.html">References</a></li>
+                <li><a href="../index.html#quiz">Quizzes</a></li>
+                <li><a href="../index.html#exercises">Exercises</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Connect</h3>
+            <ul>
+                <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 HTML Master. All HTML examples are editable and runnable.</p>
+    </div>
+</footer>
+
+<script>
+    // Tag database (keep yours; shortened here? NO—keeping full list you already had is fine)
+    const htmlTags = [
+        { tag: '<!DOCTYPE>', name: 'doctype', category: 'basic', description: 'Defines the document type and HTML version', example: '<!DOCTYPE html>', attributes: 'none' },
+        { tag: '<html>', name: 'html', category: 'basic', description: 'Root element of an HTML page', example: '<html lang="en">\\n  ...\\n</html>', attributes: 'lang' },
+        { tag: '<head>', name: 'head', category: 'basic', description: 'Contains metadata/information for the document', example: '<head>\\n  <title>Page Title</title>\\n</head>', attributes: 'none' },
+        { tag: '<title>', name: 'title', category: 'basic', description: 'Defines a title for the document', example: '<title>My First Page</title>', attributes: 'none' },
+        { tag: '<body>', name: 'body', category: 'basic', description: 'Defines the document body', example: '<body>\\n  <h1>Hello World</h1>\\n</body>', attributes: 'id, class, style' },
+        { tag: '<h1> to <h6>', name: 'headings', category: 'basic', description: 'Defines HTML headings (h1 is most important, h6 least)', example: '<h1>Main Heading</h1>\\n<h2>Subheading</h2>', attributes: 'id, class, style' },
+        { tag: '<p>', name: 'paragraph', category: 'basic', description: 'Defines a paragraph of text', example: '<p>This is a paragraph of text.</p>', attributes: 'id, class, style' },
+        { tag: '<a>', name: 'anchor', category: 'basic', description: 'Defines a hyperlink to another page or location', example: '<a href="https://example.com">Visit Example</a>', attributes: 'href, target, download, rel' },
+
+        { tag: '<img>', name: 'image', category: 'media', description: 'Embeds an image in the document', example: '<img src="image.jpg" alt="Description" width="300">', attributes: 'src, alt, width, height, loading' },
+        { tag: '<video>', name: 'video', category: 'media', description: 'Embeds video content in a document', example: '<video width="320" controls>\\n  <source src="movie.mp4">\\n</video>', attributes: 'src, controls, width, height, autoplay, loop' },
+        { tag: '<audio>', name: 'audio', category: 'media', description: 'Embeds sound content in a document', example: '<audio controls>\\n  <source src="audio.mp3">\\n</audio>', attributes: 'src, controls, autoplay, loop' },
+        { tag: '<canvas>', name: 'canvas', category: 'media', description: 'Used to draw graphics via JavaScript', example: '<canvas id="myCanvas" width="200" height="100"></canvas>', attributes: 'id, width, height' },
+        { tag: '<svg>', name: 'svg', category: 'media', description: 'Container for SVG graphics', example: '<svg width="100" height="100">\\n  <circle cx="50" cy="50" r="40"/>\\n</svg>', attributes: 'width, height, viewBox' },
+
+        { tag: '<ul>', name: 'unordered-list', category: 'basic', description: 'Defines an unordered (bulleted) list', example: '<ul>\\n  <li>Item 1</li>\\n  <li>Item 2</li>\\n</ul>', attributes: 'id, class, style' },
+        { tag: '<ol>', name: 'ordered-list', category: 'basic', description: 'Defines an ordered (numbered) list', example: '<ol>\\n  <li>First item</li>\\n  <li>Second item</li>\\n</ol>', attributes: 'id, class, style, start, type' },
+        { tag: '<li>', name: 'list-item', category: 'basic', description: 'Defines a list item', example: '<li>List item content</li>', attributes: 'id, class, style, value' },
+        { tag: '<div>', name: 'division', category: 'basic', description: 'Defines a division or section in a document', example: '<div class="container">\\n  Content goes here\\n</div>', attributes: 'id, class, style' },
+        { tag: '<span>', name: 'span', category: 'basic', description: 'Defines a section in a document (inline)', example: '<span style="color: red">Red text</span>', attributes: 'id, class, style' },
+
+        { tag: '<table>', name: 'table', category: 'table', description: 'Defines a table for displaying data', example: '<table>\\n  <tr><td>Cell 1</td><td>Cell 2</td></tr>\\n</table>', attributes: 'border, cellpadding, cellspacing' },
+        { tag: '<tr>', name: 'table-row', category: 'table', description: 'Defines a row in a table', example: '<tr>\\n  <td>Data</td>\\n</tr>', attributes: 'id, class, style' },
+        { tag: '<td>', name: 'table-data', category: 'table', description: 'Defines a cell in a table', example: '<td>Content</td>', attributes: 'colspan, rowspan, id, class' },
+
+        { tag: '<form>', name: 'form', category: 'forms', description: 'Defines an HTML form for user input', example: '<form action="/submit" method="post">\\n  <input type="text">\\n</form>', attributes: 'action, method, enctype, target' },
+        { tag: '<input>', name: 'input', category: 'forms', description: 'Defines an input control', example: '<input type="text" name="username" placeholder="Enter name">', attributes: 'type, name, value, placeholder, required' },
+        { tag: '<textarea>', name: 'textarea', category: 'forms', description: 'Defines a multi-line text input control', example: '<textarea rows="4" cols="50">\\n  Enter text here...\\n</textarea>', attributes: 'rows, cols, name, placeholder, maxlength' },
+        { tag: '<button>', name: 'button', category: 'forms', description: 'Defines a clickable button', example: '<button type="submit">Submit Form</button>', attributes: 'type, name, value, disabled, onclick' },
+        { tag: '<select>', name: 'select', category: 'forms', description: 'Defines a drop-down list', example: '<select>\\n  <option value="1">Option 1</option>\\n</select>', attributes: 'name, multiple, size, required' },
+        { tag: '<option>', name: 'option', category: 'forms', description: 'Defines an option in a drop-down list', example: '<option value="volvo">Volvo</option>', attributes: 'value, selected, disabled' },
+        { tag: '<label>', name: 'label', category: 'forms', description: 'Defines a label for an input element', example: '<label for="name">Name:</label>', attributes: 'for, form' },
+
+        { tag: '<header>', name: 'header', category: 'semantic', description: 'Intro content', example: '<header>\\n  <h1>Website Title</h1>\\n</header>', attributes: 'id, class, style' },
+        { tag: '<nav>', name: 'navigation', category: 'semantic', description: 'Navigation links', example: '<nav>\\n  <a href="/">Home</a>\\n</nav>', attributes: 'id, class, style' },
+        { tag: '<main>', name: 'main', category: 'semantic', description: 'Main content', example: '<main>\\n  <article>...</article>\\n</main>', attributes: 'id, class, style' },
+        { tag: '<article>', name: 'article', category: 'semantic', description: 'Self-contained content', example: '<article>\\n  <h2>Title</h2>\\n</article>', attributes: 'id, class, style' },
+        { tag: '<section>', name: 'section', category: 'semantic', description: 'Section', example: '<section>\\n  <h2>Section</h2>\\n</section>', attributes: 'id, class, style' },
+        { tag: '<aside>', name: 'aside', category: 'semantic', description: 'Side content', example: '<aside>\\n  Sidebar\\n</aside>', attributes: 'id, class, style' },
+        { tag: '<footer>', name: 'footer', category: 'semantic', description: 'Footer', example: '<footer>\\n  Copyright\\n</footer>', attributes: 'id, class, style' },
+
+        { tag: '<strong>', name: 'strong', category: 'formatting', description: 'Important text', example: '<strong>Important</strong>', attributes: 'id, class, style' },
+        { tag: '<em>', name: 'emphasis', category: 'formatting', description: 'Emphasized text', example: '<em>Emphasis</em>', attributes: 'id, class, style' },
+        { tag: '<mark>', name: 'mark', category: 'formatting', description: 'Highlighted text', example: '<mark>Highlight</mark>', attributes: 'id, class, style' },
+        { tag: '<small>', name: 'small', category: 'formatting', description: 'Smaller text', example: '<small>Small</small>', attributes: 'id, class, style' },
+        { tag: '<del>', name: 'deleted', category: 'formatting', description: 'Deleted text', example: '<del>$100</del>', attributes: 'id, class, style' },
+        { tag: '<ins>', name: 'inserted', category: 'formatting', description: 'Inserted text', example: '<ins>$80</ins>', attributes: 'id, class, style' },
+        { tag: '<sub>', name: 'subscript', category: 'formatting', description: 'Subscript', example: 'H<sub>2</sub>O', attributes: 'id, class, style' },
+        { tag: '<sup>', name: 'superscript', category: 'formatting', description: 'Superscript', example: 'x<sup>2</sup>', attributes: 'id, class, style' },
+        { tag: '<code>', name: 'code', category: 'formatting', description: 'Inline code', example: '<code>print("Hello")</code>', attributes: 'id, class, style' },
+        { tag: '<pre>', name: 'preformatted', category: 'formatting', description: 'Preformatted text', example: '<pre>\\n  Keep spaces\\n</pre>', attributes: 'id, class, style' },
+    ];
+
+    function renderTags(filter = 'all', search = '') {
+        const container = document.getElementById('tagsContainer');
+        container.innerHTML = '';
+
+        const s = search.trim().toLowerCase();
+        const filteredTags = htmlTags.filter(tag => {
+            const matchesCategory = filter === 'all' || tag.category === filter;
+            const matchesSearch =
+                s === '' ||
+                tag.name.toLowerCase().includes(s) ||
+                tag.description.toLowerCase().includes(s) ||
+                tag.tag.toLowerCase().includes(s);
+            return matchesCategory && matchesSearch;
+        });
+
+        filteredTags.forEach(tag => {
+            const tagCard = document.createElement('div');
+            tagCard.className = 'tag-card';
+            tagCard.dataset.category = tag.category;
+
+            tagCard.innerHTML = `
+                <div class="tag-header">
+                    <code class="tag-name">${tag.tag}</code>
+                    <span class="tag-category">${tag.category}</span>
+                </div>
+                <p class="tag-description">${tag.description}</p>
+                <pre class="tag-example" title="Click to copy">${tag.example}</pre>
+                ${tag.attributes !== 'none'
+                    ? `<div class="tag-attributes"><strong>Common Attributes:</strong> ${tag.attributes}</div>`
+                    : ''
+                }
+                <button class="try-it-btn" type="button" data-try="${tag.name}">
+                    <i class="fas fa-play"></i> Try It
+                </button>
+            `;
+
+            container.appendChild(tagCard);
+        });
+
+        document.querySelector('.reference-header h1').innerHTML =
+            `HTML Tag Reference <small style="font-size: 0.6em; color: #666;">(${filteredTags.length} tags)</small>`;
+    }
+
+    function getTryExample(tagName) {
+        const examples = {
+            doctype: '<!DOCTYPE html>',
+            html: '<html>\\n<head>\\n  <title>Page Title</title>\\n</head>\\n<body>\\n  <h1>Hello!</h1>\\n  <p>Try editing me.</p>\\n</body>\\n</html>',
+            headings: '<h1>Main Heading</h1>\\n<h2>Subheading</h2>',
+            paragraph: '<p>This is a paragraph of text.</p>',
+            anchor: '<a href="https://example.com" target="_blank" rel="noopener">Open Example</a>',
+            image: '<img src="https://via.placeholder.com/180" alt="Example image">',
+            table: '<table border="1">\\n  <tr><th>Name</th><th>Age</th></tr>\\n  <tr><td>John</td><td>25</td></tr>\\n</table>',
+            form: '<form>\\n  <label>Name: <input type="text" placeholder="Type..."></label>\\n  <button type="submit">Submit</button>\\n</form>',
+            video: '<video width="320" controls>\\n  <source src="movie.mp4" type="video/mp4">\\n</video>'
+        };
+        return examples[tagName] || null;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        renderTags();
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderTags(this.dataset.category, document.getElementById('searchTags').value);
+            });
+        });
+
+        document.getElementById('searchTags').addEventListener('input', function () {
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.category;
+            renderTags(activeFilter, this.value);
+        });
+
+        const refSearch = document.getElementById('referenceSearch');
+        if (refSearch) {
+            refSearch.addEventListener('input', function () {
+                const activeFilter = document.querySelector('.filter-btn.active').dataset.category;
+                renderTags(activeFilter, this.value);
+            });
+        }
+
+        // Click-to-copy + Try It
+        document.addEventListener('click', async function (e) {
+            const example = e.target.closest('.tag-example');
+            if (example) {
+                const text = example.textContent;
+                try {
+                    await navigator.clipboard.writeText(text);
+                    const original = example.textContent;
+                    example.textContent = '✓ Copied to clipboard!';
+                    setTimeout(() => (example.textContent = original), 1200);
+                } catch (err) {
+                    alert('Copy failed. Your browser may block clipboard access.');
+                }
+                return;
+            }
+
+            const btn = e.target.closest('.try-it-btn');
+            if (btn) {
+                const tagName = btn.getAttribute('data-try');
+                const snippet = getTryExample(tagName) || '<p>Try editing this!</p>';
+
+                // Send snippet to home editor
+                localStorage.setItem('tagExample', snippet);
+
+                // Go to home editor section
+                window.location.href = "../index.html#examples";
+            }
+        });
+    });
+</script>
+</body>
+</html>
